@@ -8,37 +8,63 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rauth import OAuth2Service
+from my_data_network_controller import DPUNetworkController
 
+
+
+def RegisterPrimaryClient():
+    if(not DPUNetworkController.CheckForClient('james')):
+        client = DPUNetworkController('james', '5555-2015-*****', '*********')
+        DPUNetworkController.RegisterClient('james', client)
 
 @api_view(['GET', 'POST'])         ### replaces JSONResponse(Htttpresponse)
 def smal_data_authentication(request):
     print("user_daily_mobility_segments")
-    response_data = {}
-    response_data['result'] = 'failed'
-    response_data['message'] = 'You messed up'
-    # return HttpResponse(json.dumps(response_data), content_type="application/json")
 
-
-    omh = OAuth2Service(
-        name=omhName,
-        client_id=client_id,
-        client_secret=client_secret,
-        access_token_url='https://ohmage-omh.smalldata.io/dsu/oauth/token',
-        authorize_url='https://ohmage-omh.smalldata.io/dsu/oauth/authorize',
-        base_url='https://ohmage-omh.smalldata.io/dsu/'
-        )
-
-    params = {'redirect_uri': "http://127.0.0.1:8000/callback",'response_type': 'code' }
-
-    url = omh.get_authorize_url(**params)
+    dpu_client = DPUNetworkController.GetClient('james')
+    url = dpu_client.get_authorize_url()
+    
     return HttpResponseRedirect(url)
 
+@api_view(['GET', 'POST']) 
+def small_data_callback_handler(request):
+    code = request.GET['code']
+    dpu_client = DPUNetworkController.GetClient('james')
 
-@api_view(['GET', 'POST'])         ### replaces JSONResponse(Htttpresponse)
+    dpu_client.configure_access_token(code)
+
+    return HttpResponseRedirect('/api/user_pam_data/')
+
+
+@api_view(['GET'])         ### replaces JSONResponse(Htttpresponse)
 def user_daily_mobility_segments(request):
-    print("user_daily_mobility_segments")
-    response_data = {}
-    response_data['result'] = 'failed'
-    response_data['message'] = 'You messed up'
-    # return HttpResponse(json.dumps(response_data), content_type="application/json")
-    return HttpResponse(json.dumps(response_data), content_type="application/json")
+    if(DPUNetworkController.GetClient('james')):
+        dpu_client = DPUNetworkController.GetClient('james')
+        print dpu_client.access_token
+        response = dpu_client.getMobilityDailySegmentsData()
+        return HttpResponse(response.json(), content_type="application/json")
+    else:
+        return HttpResponseBadRequest
+
+@api_view(['GET'])         ### replaces JSONResponse(Htttpresponse)
+def user_daily_mobility_summary(request):
+    if(DPUNetworkController.GetClient('james')):
+        dpu_client = DPUNetworkController.GetClient('james')
+        print dpu_client.access_token
+        response = dpu_client.getMobilityDailySummaryData()
+        return HttpResponse(response.json(), content_type="application/json")
+    else:
+        return HttpResponseBadRequest
+
+@api_view(['GET'])
+def user_pam_data(request):
+    if(DPUNetworkController.GetClient('james')):
+        dpu_client = DPUNetworkController.GetClient('james')
+        print dpu_client.access_token
+        response = dpu_client.getPAMData()
+        return HttpResponse(response.json(), content_type="application/json")
+    else:
+        return HttpResponseBadRequest
+
+RegisterPrimaryClient()
+
