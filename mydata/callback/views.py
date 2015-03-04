@@ -6,7 +6,7 @@ from django.shortcuts import redirect ,render_to_response
 from django.http import HttpResponse
 # Create your views here.
 def index(request):
-    t = loader.get_template("home/index.html")
+    t = loader.get_template("callback/index.html")
     # return HttpResponse(template.render(c))
     html = t.render(Context({}))
     return HttpResponse(html)
