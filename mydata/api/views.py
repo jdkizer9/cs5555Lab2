@@ -7,34 +7,29 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from rauth import OAuth2Service
-from my_data_network_controller import DPUNetworkController
+from controllers.my_data_network_controller import DPUNetworkController
+#from rauth import OAuth2Service
 
-clientName = 'zaf'
 
-def RegisterPrimaryClient():
-    print "RegisterPrimaryClient"
-    if(not DPUNetworkController.CheckForClient(clientName)):
-        client = DPUNetworkController(clientName, '5555-2015-***', '*************')
-        DPUNetworkController.RegisterClient(clientName, client)
 
-@api_view(['GET', 'POST'])         ### replaces JSONResponse(Htttpresponse)
-def smal_data_authentication(request):
-    print("user_daily_mobility_segments")
+# @api_view(['GET', 'POST'])         ### replaces JSONResponse(Htttpresponse)
+# def smal_data_authentication(request):
+#     print("user_daily_mobility_segments")
 
-    dpu_client = DPUNetworkController.GetClient(clientName)
-    url = dpu_client.get_authorize_url()
+#     dpu_client = DPUNetworkController.GetClient(clientName)
+#     url = dpu_client.get_authorize_url()
 
-    return HttpResponseRedirect(url)
+#     return HttpResponseRedirect(url)
 
-@api_view(['GET', 'POST'])
-def small_data_callback_handler(request):
-    print "small_data_callback_handler"
-    code = request.GET['code']
-    dpu_client = DPUNetworkController.GetClient(clientName)
-    dpu_client.configure_access_token(code)
-    return HttpResponseRedirect('/home/')
+# @api_view(['GET', 'POST'])
+# def small_data_callback_handler(request):
+#     print "small_data_callback_handler"
+#     code = request.GET['code']
+#     dpu_client = DPUNetworkController.GetClient(clientName)
+#     dpu_client.configure_access_token(code)
+#     return HttpResponseRedirect('/home/')
 
+clientName = 'james'
 
 @api_view(['GET'])         ### replaces JSONResponse(Htttpresponse)
 def user_daily_mobility_segments(request):
@@ -72,4 +67,4 @@ def user_pam_data(request):
         return HttpResponseBadRequest
 
 
-RegisterPrimaryClient()
+

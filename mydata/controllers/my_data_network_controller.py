@@ -36,6 +36,9 @@ class DPUNetworkController(object):
         self.session = None
         self.access_token = None
 
+    def is_client_authenticated(self):
+        return self.access_token != None
+
     def get_authorize_url(self):
 
         params = {'redirect_uri': "http://localhost:8000/callback",
