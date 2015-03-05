@@ -168,3 +168,56 @@ class DPUNetworkController(object):
             params['skip'] = str(skip)
 
         return self.getData(params)
+
+class GithubNetworkController(object):
+    __instance_map = {}
+
+    @classmethod
+    def RegisterClient(cls, name, instance):
+        cls.__instance_map[name] = instance
+        print cls.__instance_map
+
+    @classmethod
+    def CheckForClient(cls, name):
+        return name in cls.__instance_map
+
+    @classmethod
+    def GetClient(cls, name):
+        print cls.__instance_map
+        return cls.__instance_map[name]
+
+    def __init__(self, name, client_id, client_secret):
+        self.name = name
+        self.service_name = 'github-' + name
+        self.client_id = client_id
+        self.client_secret = client_secret
+        self.service = OAuth2Service(
+            name=self.service_name,
+            client_id=self.client_id,
+            client_secret=self.client_id,
+            access_token_url='https://github.com/login/oauth/access_token',
+            authorize_url='https://github.com/login/oauth/authorize',
+            base_url='https://github.com/')
+        self.session = None
+        self.access_token = None
+
+    def is_client_authenticated(self):
+        return self.access_token != None
+
+    def get_authorize_url(self):
+
+        params = {'redirect_uri': "http://localhost:8000/callback/github_callback",
+                    'state': 'A random string',
+                    'scope' : 'user,repo'}
+
+        url = self.service.get_authorize_url(**params)
+        return url
+
+    def configure_access_token(self, code):
+        data = {'code': code,
+                'redirect_uri': "http://localhost:8000/callback/github_callback"}
+
+        session = self.service.get_auth_session(data=data, headers=headers, decoder=json.loads)
+        self.session = session
+        access_token_response_body = self.service.access_token_response.json()
+        self.access_token = access_token_response_body['access_token']
