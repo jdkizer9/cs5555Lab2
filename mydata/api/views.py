@@ -11,7 +11,7 @@ from controllers.my_data_network_controller import DPUNetworkController
 #from rauth import OAuth2Service
 
 
-clientName = 'james'
+clientName = 'zaf'
 
 @api_view(['GET'])         ### replaces JSONResponse(Htttpresponse)
 def user_daily_mobility_segments(request):

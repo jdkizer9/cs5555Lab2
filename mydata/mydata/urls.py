@@ -8,6 +8,5 @@ urlpatterns = patterns('',
     url(r'^home/', include('home.urls')),
     url(r'^api/', include('api.urls')),
     url(r'^callback/', include('callback.urls')),
-
     url(r'^admin/', include(admin.site.urls)),
 )

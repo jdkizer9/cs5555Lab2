@@ -50,7 +50,7 @@ $scope.initialize = function() {
   }
 
   var map = new google.maps.Map(mapCanvas, mapOptions)
-  alert( $scope.user_daily_mobility_segments_data[0].body['segments'][0]['locations'][0]['location']['longitude'])
+  // alert( $scope.user_daily_mobility_segments_data[0].body['segments'][0]['locations'][0]['location']['longitude'])
   // var flightPlanCoordinates = [  ];
   // flightPlanCoordinates.push(
   //
@@ -69,19 +69,23 @@ $scope.initialize = function() {
   // });
 
   var markers =[]
-alert($scope.user_daily_mobility_segments_data[0].body['segments'][0]['locations'].length )
-  for (var i = 0 ; i < $scope.user_daily_mobility_segments_data[0].body['segments'][0]['locations'].length ; i++){
-    markers.push(new google.maps.Marker({
-    position:
-    new google.maps.LatLng(
-      $scope.user_daily_mobility_segments_data[0].body['segments'][0]['locations'][i]['location']['latitude'],
-      $scope.user_daily_mobility_segments_data[0].body['segments'][0]['locations'][i]['location']['longitude']
-    ),
-    map: map,
-    title: 'Hello World!'
-  }))
-    }
+  for (var j = 0 ; j < $scope.user_daily_mobility_segments_data.length ; j++){
 
+  // data[0].body['segments'][0]['locations'][0])
+// alert($scope.user_daily_mobility_segments_data[0].body['segments'][0]['locations'].length )
+      for (var i = 0 ; i < $scope.user_daily_mobility_segments_data[j].body['segments'][0]['locations'].length ; i++){
+        markers.push(new google.maps.Marker({
+        position:
+        new google.maps.LatLng(
+          $scope.user_daily_mobility_segments_data[0].body['segments'][0]['locations'][i]['location']['latitude'],
+          $scope.user_daily_mobility_segments_data[0].body['segments'][0]['locations'][i]['location']['longitude']
+        ),
+        map: map,
+        title: 'Hello World!'
+      })
+    )
+    }
+  }
     alert(markers.length)
 
   // var flightPlanCoordinates = [

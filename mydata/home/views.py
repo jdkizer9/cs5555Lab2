@@ -13,7 +13,7 @@ githubClientName = 'james'
 def RegisterPrimaryClient():
     print "RegisterPrimaryClient"
     if(not DPUNetworkController.CheckForClient(clientName)):
-        client = DPUNetworkController(clientName, '5555-2015-****', '*****')
+        client = DPUNetworkController(clientName, '5555-2015-???', '????')
         DPUNetworkController.RegisterClient(clientName, client)
 
     if(not GithubNetworkController.CheckForClient(githubClientName)):
