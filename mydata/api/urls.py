@@ -9,7 +9,7 @@ router = routers.DefaultRouter()
 
 urlpatterns = patterns('',
     url(r'^', include(router.urls)),
-    url(r'^smal_data_authentication/', views.smal_data_authentication , name='smal_data_authentication'),
+    # url(r'^smal_data_authentication/', views.smal_data_authentication , name='smal_data_authentication'),
     url(r'^user_daily_mobility_segments/', views.user_daily_mobility_segments , name='user_daily_mobility_segments'),
     url(r'^user_daily_mobility_summary/', views.user_daily_mobility_summary , name='user_daily_mobility_summary'),
     url(r'^user_pam_data/', views.user_pam_data , name='user_pam_data'),
