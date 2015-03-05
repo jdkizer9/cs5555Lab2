@@ -8,7 +8,7 @@ from controllers.my_data_network_controller import DPUNetworkController
 from django.http import HttpResponse
 # Create your views here.
 
-clientName = 'james'
+clientName = 'zaf'
 
 def index(request):
     print "in callback hander"
