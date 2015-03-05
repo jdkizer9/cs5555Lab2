@@ -2,12 +2,30 @@
 <html>
 <head>
 
-  <link rel="stylesheet" href="/static/externals/bootstrap/css/bootstrap.css" type="text/css"/>
-  <script src="/static/externals/jquery/jquery-1.11.1.js"></script>
-  <script src="/static/externals/bootstrap/js/bootstrap.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <style>
 
-<style>
+  .axis text {
+    font: 10px sans-serif;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  .hexagon {
+    fill: none;
+    stroke: #000;
+    stroke-width: .5px;
+  }
+
 #map-canvas {
   width: 100%;
   height: 400px;
@@ -15,7 +33,6 @@
 </style>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <script src="/static/scripts/home/index.js"></script>
-
 
 </head>
 <body role="document">
@@ -61,6 +78,14 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <h1>MyData</h1>
+    </div>
+
+    <div class="page-header">
+      <h1>PAM</h1>
+    </div>
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+      <svg width="960" height="500"></svg>
+
     </div>
 
     <div class="page-header">

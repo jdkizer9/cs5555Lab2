@@ -10,11 +10,12 @@ from django.contrib.auth.models import User
 from rauth import OAuth2Service
 from my_data_network_controller import DPUNetworkController
 
-clientName = 'james'
+clientName = 'zaf'
 
 def RegisterPrimaryClient():
+    print "RegisterPrimaryClient"
     if(not DPUNetworkController.CheckForClient(clientName)):
-        client = DPUNetworkController(clientName, '5555-2015-*****', '*********')
+        client = DPUNetworkController(clientName, '5555-2015-***', '*************')
         DPUNetworkController.RegisterClient(clientName, client)
 
 @api_view(['GET', 'POST'])         ### replaces JSONResponse(Htttpresponse)
@@ -28,42 +29,47 @@ def smal_data_authentication(request):
 
 @api_view(['GET', 'POST'])
 def small_data_callback_handler(request):
+    print "small_data_callback_handler"
     code = request.GET['code']
     dpu_client = DPUNetworkController.GetClient(clientName)
-
     dpu_client.configure_access_token(code)
-
-    return HttpResponseRedirect('/api/user_pam_data/')
+    return HttpResponseRedirect('/home/')
 
 
 @api_view(['GET'])         ### replaces JSONResponse(Htttpresponse)
 def user_daily_mobility_segments(request):
+    print "user_daily_mobility_segments"
     if(DPUNetworkController.GetClient(clientName)):
         dpu_client = DPUNetworkController.GetClient(clientName)
         print dpu_client.access_token
         response = dpu_client.getMobilityDailySegmentsData()
-        return HttpResponse(response.json(), content_type="application/json")
+        # return Response(response.json(), status=status.HTTP_400_BAD_REQUEST)
+        return HttpResponse(response, content_type="application/json")
     else:
         return HttpResponseBadRequest
 
 @api_view(['GET'])         ### replaces JSONResponse(Htttpresponse)
 def user_daily_mobility_summary(request):
+    print "user_daily_mobility_summary"
     if(DPUNetworkController.GetClient(clientName)):
         dpu_client = DPUNetworkController.GetClient(clientName)
         print dpu_client.access_token
         response = dpu_client.getMobilityDailySummaryData()
-        return HttpResponse(response.json(), content_type="application/json")
+        return HttpResponse(response, content_type="application/json")
     else:
         return HttpResponseBadRequest
 
 @api_view(['GET'])
 def user_pam_data(request):
+    print "user_pam_data"
     if(DPUNetworkController.GetClient(clientName)):
         dpu_client = DPUNetworkController.GetClient(clientName)
         print dpu_client.access_token
         response = dpu_client.getPAMData()
-        return HttpResponse(response.json(), content_type="application/json")
+        return HttpResponse(response, content_type="application/json")
+    # # return HttpResponse(data, content_type="application/json")
     else:
         return HttpResponseBadRequest
+
 
 RegisterPrimaryClient()

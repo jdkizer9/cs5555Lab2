@@ -1,16 +1,18 @@
 var app = angular.module('myapp',[])
 
 app.controller('MydataCtrl', function($scope,$http) {
+
   $http({
     method: 'get',
     url:'/api/user_daily_mobility_segments/'
   }).success(function(data, status) {
-    $scope.user_daily_mobility_segments_data = data;
-     alert(data.message)
+    // $scope.user_daily_mobility_segments_data = data;
+     alert(data)
     // alert($scope.meal.name)
-
   }).error(function(data, status) {
-    //alert('Server Is Done');
+    alert(status)
+
+    // alert(data);
   });
 
 $scope.initialize = function() {

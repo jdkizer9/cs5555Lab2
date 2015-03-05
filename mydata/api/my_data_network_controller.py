@@ -64,7 +64,7 @@ class DPUNetworkController(object):
         return r
 
     def getPAMData(self, ios=True, created_on_or_after=None, created_before=None, skip=None, limit=100):
-        
+
         if(ios):
             params = {'schema_namespace' : 'cornell',
                         'schema_name' : 'photographic-affect-meter-scores',
@@ -87,7 +87,7 @@ class DPUNetworkController(object):
         return self.getData(params)
 
     def getMobilityDailySummaryData(self, created_on_or_after=None, created_before=None, skip=None, limit=100):
-        
+
         params = {'schema_namespace' : 'cornell',
                     'schema_name' : 'mobility-daily-summary',
                     'schema_version' : '1.0',
@@ -103,7 +103,7 @@ class DPUNetworkController(object):
         return self.getData(params)
 
     def getMobilityDailySegmentsData(self, created_on_or_after=None, created_before=None, skip=None, limit=100):
-        
+
         params = {'schema_namespace' : 'cornell',
                     'schema_name' : 'mobility-daily-segments',
                     'schema_version' : '1.0',
@@ -165,4 +165,3 @@ class DPUNetworkController(object):
             params['skip'] = str(skip)
 
         return self.getData(params)
-
