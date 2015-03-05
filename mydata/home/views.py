@@ -12,7 +12,7 @@ clientName = 'zaf'
 def RegisterPrimaryClient():
     print "RegisterPrimaryClient"
     if(not DPUNetworkController.CheckForClient(clientName)):
-        client = DPUNetworkController(clientName, '5555-2015-???', '????')
+        client = DPUNetworkController(clientName, '5555-2015-????', '????')
         DPUNetworkController.RegisterClient(clientName, client)
 
 # Create your views here.

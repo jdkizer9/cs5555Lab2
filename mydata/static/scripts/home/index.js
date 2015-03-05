@@ -8,7 +8,7 @@ app.controller('MydataCtrl', function($scope,$http) {
   }).success(function(data, status) {
     $scope.user_daily_mobility_segments_data = data;
     // alert(data.length)
-    alert(Object.keys(data[0].body['segments'][0]['locations'][0]))//.header['segments'][2]['locations']))
+    alert(Object.keys( $scope.user_daily_mobility_segments_data[0].body['segments'][0]['locations'][0]))//.header['segments'][2]['locations']))
     // alert(data[0].body['segments'][2]['locations'][0]['location']['latitude'])//longitude
 
     google.maps.event.addDomListener(window, 'load', $scope.initialize());
@@ -70,23 +70,29 @@ $scope.initialize = function() {
 
   var markers =[]
   for (var j = 0 ; j < $scope.user_daily_mobility_segments_data.length ; j++){
-
   // data[0].body['segments'][0]['locations'][0])
 // alert($scope.user_daily_mobility_segments_data[0].body['segments'][0]['locations'].length )
+// alert($scope.user_daily_mobility_segments_data[j].body['segments'])
+
       for (var i = 0 ; i < $scope.user_daily_mobility_segments_data[j].body['segments'][0]['locations'].length ; i++){
         markers.push(new google.maps.Marker({
         position:
         new google.maps.LatLng(
-          $scope.user_daily_mobility_segments_data[0].body['segments'][0]['locations'][i]['location']['latitude'],
-          $scope.user_daily_mobility_segments_data[0].body['segments'][0]['locations'][i]['location']['longitude']
+          $scope.user_daily_mobility_segments_data[j].body['segments'][0]['locations'][i]['location']['latitude'],
+          $scope.user_daily_mobility_segments_data[j].body['segments'][0]['locations'][i]['location']['longitude']
         ),
+
         map: map,
-        title: 'Hello World!'
+        title:   $scope.user_daily_mobility_segments_data[j].body['segments'][0]['locations'][i]['timestamp'],
       })
     )
     }
   }
     alert(markers.length)
+
+    // google.maps.event.addListener(markers, 'click', function() {
+    //   alert(this.customInfo);
+    // });
 
   // var flightPlanCoordinates = [
   // new google.maps.LatLng(44.5403, -78.5463),
@@ -117,6 +123,8 @@ $scope.initialize = function() {
   });
 
   flightPath.setMap(map);
+
+
 
 }
 // $scope.initialize()
