@@ -15,7 +15,7 @@ clientName = 'zaf'
 def RegisterPrimaryClient():
     print "RegisterPrimaryClient"
     if(not DPUNetworkController.CheckForClient(clientName)):
-        client = DPUNetworkController(clientName, '5555-2015-***', '*************')
+        client = DPUNetworkController(clientName, '5555-2015-zaf', 'QAdsYd2qtam')
         DPUNetworkController.RegisterClient(clientName, client)
 
 @api_view(['GET', 'POST'])         ### replaces JSONResponse(Htttpresponse)
