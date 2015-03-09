@@ -89,7 +89,7 @@ class DPUNetworkController(object):
 
         return self.getData(params)
 
-    def getMobilityDailySummaryData(self, created_on_or_after=None, created_before=None, skip=None, limit=100):
+    def getMobilityDailySummaryData(self, created_on_or_after=None, created_before=None, skip=None, limit=1000):
 
         params = {'schema_namespace' : 'cornell',
                     'schema_name' : 'mobility-daily-summary',
@@ -105,7 +105,7 @@ class DPUNetworkController(object):
 
         return self.getData(params)
 
-    def getMobilityDailySegmentsData(self, created_on_or_after=None, created_before=None, skip=None, limit=100):
+    def getMobilityDailySegmentsData(self, created_on_or_after=None, created_before=None, skip=None, limit=1000):
 
         params = {'schema_namespace' : 'cornell',
                     'schema_name' : 'mobility-daily-segments',

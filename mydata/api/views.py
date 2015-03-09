@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 #from rauth import OAuth2Service
 
 
-clientName = 'zaf'
+clientName = 'james'
 
 @api_view(['GET'])         ### replaces JSONResponse(Htttpresponse)
 def user_daily_mobility_segments(request):
