@@ -8,13 +8,14 @@ from django.http import HttpResponse
 from controllers.my_data_network_controller import DPUNetworkController, GithubNetworkController
 
 
-clientName = '????'
+clientName = 'james'
+githubClientName = 'james'
 
 
 def RegisterPrimaryClient():
     print "RegisterPrimaryClient"
     if(not DPUNetworkController.CheckForClient(clientName)):
-        client = DPUNetworkController(clientName, '5555-2015-???', '?????')
+        client = DPUNetworkController(clientName, '5555-2015-james', 'QNQADNryoP')
         DPUNetworkController.RegisterClient(clientName, client)
 
     if(not GithubNetworkController.CheckForClient(githubClientName)):

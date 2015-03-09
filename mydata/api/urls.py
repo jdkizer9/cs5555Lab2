@@ -12,5 +12,6 @@ urlpatterns = patterns('',
     url(r'^user_daily_mobility_segments/', views.user_daily_mobility_segments , name='user_daily_mobility_segments'),
     url(r'^user_daily_mobility_summary/', views.user_daily_mobility_summary , name='user_daily_mobility_summary'),
     url(r'^user_pam_data/', views.user_pam_data , name='user_pam_data'),
+    url(r'^user_pam_figure/', views.user_pam_figure , name='user_pam_figure'),
 
 )
