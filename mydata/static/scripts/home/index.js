@@ -8,13 +8,29 @@ app.controller('MydataCtrl', function($scope,$http) {
   }).success(function(data, status) {
     $scope.user_daily_mobility_segments_data = data;
     // alert(data.length)
-    alert(Object.keys( $scope.user_daily_mobility_segments_data[0].body['segments'][0]['locations'][0]))//.header['segments'][2]['locations']))
+    // alert(Object.keys( $scope.user_daily_mobility_segments_data[0].body['segments'][0]['locations'][0]))//.header['segments'][2]['locations']))
     // alert(data[0].body['segments'][2]['locations'][0]['location']['latitude'])//longitude
 
     google.maps.event.addDomListener(window, 'load', $scope.initialize());
 
     //  alert(data.length)
     // alert($scope.meal.name)
+  }).error(function(data, status) {
+    alert(status)
+
+    // alert(data);
+  });
+
+
+  $http({
+    method: 'get',
+    url:'/api/user_pam_figure'
+  }).success(function(data, status) {
+    // $scope.user_daily_mobility_segments_data = data;
+    alert("data")
+
+    alert(data)
+
   }).error(function(data, status) {
     alert(status)
 
@@ -88,7 +104,7 @@ $scope.initialize = function() {
     )
     }
   }
-    alert(markers.length)
+    // alert(markers.length)
 
     // google.maps.event.addListener(markers, 'click', function() {
     //   alert(this.customInfo);

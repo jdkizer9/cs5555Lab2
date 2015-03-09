@@ -10,7 +10,7 @@ from controllers.my_data_network_controller import DPUNetworkController
 from django.http import HttpResponse
 # Create your views here.
 
-clientName = 'james'
+clientName = 'zaf'
 
 def index(request):
     #print "in callback hander"
@@ -21,7 +21,7 @@ def index(request):
 
     # return api_views.small_data_callback_handler(request)
 
-@api_view(['GET']) 
+@api_view(['GET'])
 def github_callback(request):
 	return HttpResponse("Github callback!!")
     # code = request.GET['code']
