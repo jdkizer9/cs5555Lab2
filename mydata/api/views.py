@@ -66,12 +66,17 @@ def user_pam_figure(request):
             valence_list.append(body['affect_valence'])
             arousal_list.append(body['affect_arousal'])
 
-        average_valence = reduce( lambda a, x: a+x, valence_list) / float(len(valence_list))
-        average_arousal = reduce( lambda a, x: a+x, arousal_list) / float(len(arousal_list))
+        if(len(valence_list) > 0):
+            average_valence = reduce( lambda a, x: a+x, valence_list) / float(len(valence_list))
+            average_arousal = reduce( lambda a, x: a+x, arousal_list) / float(len(arousal_list))
+            plt.scatter(valence_list, arousal_list, s=100, c='b', alpha=0.5)
+        else:
+            average_valence = 0.0
+            average_arousal = 0.0
 
         # plot data
-        plt.scatter(valence_list, arousal_list, s=100, c='b', alpha=0.5)
         plt.scatter([average_valence], [average_arousal], s=100, c='r', alpha=0.5)
+
 
         # draw vertical line from (70,100) to (70, 250)
         plt.plot([2.5, 2.5], [0, 5], 'k-')
@@ -80,10 +85,12 @@ def user_pam_figure(request):
         plt.plot([0, 5], [2.5, 2.5], 'k-')
         plt.figure(num=1, figsize=(10, 10), dpi=100, facecolor='w', edgecolor='k')
 
-        # fig = plt.figure()
         ax = plt.axes()
         ax.set_xlim(left=0, right=5)
         ax.set_ylim(bottom=0, top=5)
+
+        plt.xlabel('Valence')
+        plt.ylabel('Arousal')
 
         #return plot
         response = HttpResponse(content_type="image/png")
