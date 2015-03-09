@@ -21,7 +21,7 @@ def index(request):
 
     # return api_views.small_data_callback_handler(request)
 
-@api_view(['GET']) 
+@api_view(['GET'])
 def github_callback(request):
 	return HttpResponse("Github callback!!")
     # code = request.GET['code']
