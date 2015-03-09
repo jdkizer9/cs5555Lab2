@@ -41,4 +41,24 @@ def index(request):
     html = t.render(Context({}))
     return HttpResponse(html)
 
+
+def index(request):
+    #check for authenticated user
+    #Assume primary client exists
+    dpu_client = DPUNetworkController.GetClient(clientName)
+    if(not dpu_client.is_client_authenticated()):
+        if(clientName ==""):
+            print '@@@@@@@@@@@@'
+            t = loader.get_template("home/Login.html")
+            html = t.render(Context({}))
+            return HttpResponse(html)
+        print 'Client is NOT authenticated'
+        url = dpu_client.get_authorize_url()
+        return HttpResponseRedirect(url)
+
+    print 'Client is authenticated'
+    t = loader.get_template("home/index.html")
+    html = t.render(Context({}))
+    return HttpResponse(html)
+
 RegisterPrimaryClient()
