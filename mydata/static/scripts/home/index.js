@@ -22,20 +22,20 @@ app.controller('MydataCtrl', function($scope,$http) {
   });
 
 
-  $http({
-    method: 'get',
-    url:'/api/user_pam_figure'
-  }).success(function(data, status) {
-    // $scope.user_daily_mobility_segments_data = data;
-    alert("data")
-
-    alert(data)
-
-  }).error(function(data, status) {
-    alert(status)
-
-    // alert(data);
-  });
+  // $http({
+  //   method: 'get',
+  //   url:'/api/user_pam_figure'
+  // }).success(function(data, status) {
+  //   // $scope.user_daily_mobility_segments_data = data;
+  //   alert("data")
+  //
+  //   alert(data)
+  //
+  // }).error(function(data, status) {
+  //   alert(status)
+  //
+  //   // alert(data);
+  // });
 
   $http({
     method: 'get',
