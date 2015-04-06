@@ -18,14 +18,37 @@ def RegisterPrimaryClient():
         client = DPUNetworkController(clientName, '5555-2015-james', 'QNQADNryoP')
         DPUNetworkController.RegisterClient(clientName, client)
 
-    if(not GithubNetworkController.CheckForClient(githubClientName)):
-        githubClient = GithubNetworkController(githubClientName, '80f75c86d218df2dd193', '0f033172a95f612dbcf88f9ae3c711127e926776')
-        GithubNetworkController.RegisterClient(githubClientName, githubClient)
+    # if(not GithubNetworkController.CheckForClient(githubClientName)):
+    #     githubClient = GithubNetworkController(githubClientName, '', '')
+    #     GithubNetworkController.RegisterClient(githubClientName, githubClient)
 
 # Create your views here.
 def index(request):
     #check for authenticated user
     #Assume primary client exists
+
+    tree = ET.parse("../static/DmitryTsatsulin-CCD.xml")
+
+    doc = tree.getroot()
+
+    ns = ET.FunctionNamespace('urn:hl7-org:v3')
+    ns.prefix = 'cda'
+
+
+    section_importers = {
+        'medications':MedicationImporter(),
+        'results':ResultImporter(),
+        'condition':ConditionImporter()
+    }
+
+    nrh = NarrativeReferenceHandler()
+    nrh.build_id_map (doc)
+
+    for sec, importer in section_importers.items():
+        importer.create_enteries(doc, nrh)
+
+    
+
     print request
     dpu_client = DPUNetworkController.GetClient(clientName)
     if(not dpu_client.is_client_authenticated()):
